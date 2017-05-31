@@ -18,6 +18,7 @@ echo -e "${BWHITE}* Preparing system...${NC}"
 apt-get update  > /dev/null 2>&1
 apt-get install -y git locate curl > /dev/null 2>&1
 check_errors $?
+
 if [[ ! -d '$NGINXCONFDIR' ]]; then
 	apt-get install -y nginx > /dev/null 2>&1
 else
