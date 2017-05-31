@@ -9,24 +9,22 @@ function check_errors() {
 }
 
 function install_letsencrypt() {
-	echo -e "${BLUE}### Let's Encrypt installation ###${NC}"
 	LEDIR="/opt/letsencrypt"
 	if [[ ! -d "$LEDIR" ]]; then
-		echo " * Installing Lets'Encrypt"
+		echo -e "${BWHITE}* Installing Lets'Encrypt${NC}"
 		git clone https://github.com/letsencrypt/letsencrypt /opt/letsencrypt > /dev/null 2>&1
-		checking_errors $?
-		echo ""
 		cd /opt/letsencrypt && ./letsencrypt-auto --help > /dev/null 2>&1
+		check_errors $?
 	else
-		echo -e " ${YELLOW}* Let's Encrypt is already installed !${NC}"
-		echo ""
+		echo -e "	${YELLOW}* [INFO] Let's Encrypt already installed !${NC}"
 	fi
 }
 
 function generate_ssl_cert() {
 	EMAILADDRESS=$1
 	DOMAIN=$2
+	RSAKEYSIZE=$3
 	echo -e "  ${BWHITE}* Generating LE certificate for $DOMAIN, please wait...${NC}"
-	bash /opt/letsencrypt/letsencrypt-auto certonly --standalone --preferred-challenges http-01 --agree-tos --rsa-key-size 4096 --non-interactive --quiet --email $EMAILADDRESS -d $DOMAINSSL
+	bash /opt/letsencrypt/letsencrypt-auto certonly --standalone --preferred-challenges http-01 --agree-tos --rsa-key-size $RSAKEYSIZE --non-interactive --quiet --email $EMAILADDRESS -d $DOMAIN
 }
 
