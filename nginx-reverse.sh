@@ -1,4 +1,5 @@
 #!/bin/bash
+source includes/functions.sh
 ### SYNTAX COLORATION
 RED='\e[0;31m'
 GREEN='\033[0;32m'
@@ -30,7 +31,7 @@ else
 	else
 		if (whiptail --title "SSL" --yesno "Do you wan't to use SSL with Let's Encrypt ?" 7 90) then
 			if [[ ! -f '$LEDIR' ]]; then
-
+				echo "test"
 			fi
 		fi
 	fi
