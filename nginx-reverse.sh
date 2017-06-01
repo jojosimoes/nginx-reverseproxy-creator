@@ -87,11 +87,11 @@ else
 		fi
 		echo ""
 	fi
+	echo -e "${BWHITE}* Stopping Nginx service${NC}"
+	service nginx stop > /dev/null 2>&1
+	check_errors $?
 	if [[ "$USESSL" == "yes" ]]; then
 		echo -e "${BLUE}### Generating certificate ###${NC}"
-		echo -e "${BWHITE}* Stopping Nginx service${NC}"
-		service nginx stop > /dev/null 2>&1
-		check_errors $?
 		echo -e "${BWHITE}* Generating certificate files${NC}"
 		generate_ssl_cert $EMAIL $DOMAIN $RSAKEYSIZE
 		check_errors $?
