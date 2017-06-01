@@ -33,5 +33,5 @@ If you choose classic option, here an example :
 ### SSL Option
 If you choose SSL reverse, you need to add your email and RSA Key Size, like this :
 ```
-./nginx-reverse.sh classic app.domain.tld 8888 contact@domain.tld 2048
+./nginx-reverse.sh ssl app.domain.tld 8888 contact@domain.tld 2048
 ```
