@@ -1,7 +1,7 @@
 # Nginx ReverseProxy Creator
 ![NginxLogo](https://www.nginx.com/resources/wiki/_static/img/logo.png)
 
-Just a little script to create Nginx reverse proxy with SSL support.
+Just a little script to create Nginx reverse proxy with SSL support. Simply run the script with or without parameters and that's all !
 
 ## Installation
 To start, just clone this repo to your **/opt** folder :
