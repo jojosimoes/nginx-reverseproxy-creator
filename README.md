@@ -20,7 +20,15 @@ It will ask you some informations about domain and application port :
 ![NginxReverse](https://goo.gl/W3NNUf)
 
 ## Advanced Usage
-So, you can use parameters when launching the script. Two options are available :
- * classic : create a classic reverse proxy with HTTP support (80)
- * ssl : create an SSL reverse proxy with HTTPS and auto redirection from 80 to 443
+You can use parameters when launching the script. Two options are available :
+ * **classic** : create a classic reverse proxy with HTTP support (80)
+ * **ssl** : create an SSL reverse proxy with HTTPS (443) and auto redirection from 80 to 443
+ 
+### Classic Option
+If you choose classic option, here an example :
+ * ./nginx-reverse.sh classic app.domain.tld 8888
+ 
+### SSL Option
+If you choose SSL reverse, you need to add your email and RSA Key Size, like this :
+ * ./nginx-reverse.sh classic app.domain.tld 8888 contact@domain.tld 2048
 
