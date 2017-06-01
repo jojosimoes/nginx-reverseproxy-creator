@@ -8,6 +8,26 @@ function check_errors() {
 	fi
 }
 
+function how_to_use() {
+	echo -e " ${YELLOW}/!\ Wrong usage of the script. Please use the following parameters :${NC}"
+	echo -e "${BWHITE}Usage for classic reverse :${NC} ./nginx-reverse.sh [OPTIONS] [PARAMETERS]"
+	echo ""
+	echo -e "${BWHITE}Options 	Meaning${NC}"
+	echo "classic 	Create classic reverse proxy on HTTP (80)"
+	echo "ssl 		Create SSL reverse proxy on HTTPS (443)"
+	echo -e "${BWHITE}Parameter 	Meaning${NC}"
+	echo "DOMAIN 		Your domain or Subdomain you want to use with app"
+	echo "PORT 		Port you wan't to use behind your reverse"
+	echo "EMAIL 		Your email, to use with Let's Encrypt (Just for SSL)"
+	echo "RSAKEYSIZE 	Define an RSA Key Size for Let's Encrypt generation (Just for SSL)"
+	echo ""
+	echo -e "${BWHITE}Examples :${NC}"
+	echo "    -> ./nginx-reverse.sh"
+	echo "    -> ./nginx-reverse.sh classic domain.tld 8080"
+	echo "    -> ./nginx-reverse.sh ssl domain.tld 8080 contact@domain.tld 2048"
+	exit 1
+}
+
 function install_letsencrypt() {
 	LEDIR="/opt/letsencrypt"
 	if [[ ! -d "$LEDIR" ]]; then
