@@ -10,8 +10,8 @@ BWHITE='\e[1;37m'
 NC='\033[0m'
 NGINXCONFDIR='/etc/nginx/conf.d/'
 LEDIR='/opt/letsencrypt'
-TEMPLATE='https://raw.githubusercontent.com/bilyboy785/nginx-reverseproxy-creator/master/includes/proxy.template.conf'
-TEMPLATESSL='https://raw.githubusercontent.com/bilyboy785/nginx-reverseproxy-creator/master/includes/proxyssl.template.conf'
+TEMPLATE='https://raw.githubusercontent.com/jojosimoes/nginx-reverseproxy-creator/master/includes/proxy.template.conf'
+TEMPLATESSL='https://raw.githubusercontent.com/jojosimoes/nginx-reverseproxy-creator/master/includes/proxyssl.template.conf'
 DATE=`date +%d/%m/%Y-%H:%M:%S`
 BACKUPDATE=`date +%d-%m-%Y-%H-%M-%S`
 
@@ -28,7 +28,7 @@ case $1 in
 		;;
 	"ssl" )
 		DOMAIN=$2
-		PORT=$3
+		DESTINATION=$3
 		EMAIL=$4
 		RSAKEYSIZE=$5
 		USESSL="yes"
@@ -36,12 +36,12 @@ case $1 in
 	"classic" )
 		USESSL="no"
 		DOMAIN=$2
-		PORT=$3
+		DESTINATION=$3
 		;;
 	"" )
 		MODE="manual"
 		DOMAIN=$(whiptail --title "Domain" --inputbox "Enter your domain or subdomain for this app" 7 65 3>&1 1>&2 2>&3)
-		PORT=$(whiptail --title "Port" --inputbox "Enter your app's port" 7 65 3>&1 1>&2 2>&3)
+		DESTINATION=$(whiptail --title "Destination" --inputbox "Enter your app's destination (ex: 127.0.0.1:80)" 7 65 3>&1 1>&2 2>&3)
 		if (whiptail --title "SSL" --yesno "Do you wan't to use SSL with Let's Encrypt ?" 7 90) then
 			EMAIL=$(whiptail --title "Email" --inputbox "Enter your email" 7 65 3>&1 1>&2 2>&3)
 			RSAKEYSIZE=$(whiptail --title "RSA Key Size" --inputbox "Enter RSA key size for Let'sEncrypt" 7 65 "2048" 3>&1 1>&2 2>&3)
@@ -80,7 +80,7 @@ else
 		echo -e "${BWHITE}* You've not passed parameters, let's started !${NC}"
 		echo -e "${BWHITE}* Here is your informations :${NC}"
 		echo -e "	-> Your domain : $DOMAIN"
-		echo -e "	-> Your app port : $PORT"
+		echo -e "	-> Your app destination : $DESTINATION"
 		if [[ "$USESSL" == "yes" ]]; then
 			echo -e "	-> Your email : $EMAIL"
 			echo -e "	-> RSA Key Size : $RSAKEYSIZE"
@@ -110,7 +110,7 @@ else
 	fi
 	echo -e "${BWHITE}* Modifying files...${NC}"
 	sed -i "s|%DOMAIN%|$DOMAIN|g" $NGXPROXYFILE
-	sed -i "s|%PORT%|$PORT|g" $NGXPROXYFILE
+	sed -i "s|%DESTINATION%|$DESTINATION|g" $NGXPROXYFILE
 	nginx -t > /dev/null 2>&1
 	if [[ "$?" == "0" ]]; then
 		echo -e "	${GREEN}--> Nginx file configuration test sucessful !${NC}"

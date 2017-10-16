@@ -17,14 +17,14 @@ function how_to_use() {
 	echo "ssl 		Create SSL reverse proxy on HTTPS (443)"
 	echo -e "${BWHITE}Parameter 	Meaning${NC}"
 	echo "DOMAIN 		Your domain or Subdomain you want to use with app"
-	echo "PORT 		Port you wan't to use behind your reverse"
+	echo "DESTINATION 	Destination you wan't to use behind your reverse"
 	echo "EMAIL 		Your email, to use with Let's Encrypt (Just for SSL)"
 	echo "RSAKEYSIZE 	Define an RSA Key Size for Let's Encrypt generation (Just for SSL)"
 	echo ""
 	echo -e "${BWHITE}Examples :${NC}"
 	echo "    -> ./nginx-reverse.sh"
-	echo "    -> ./nginx-reverse.sh classic domain.tld 8080"
-	echo "    -> ./nginx-reverse.sh ssl domain.tld 8080 contact@domain.tld 2048"
+	echo "    -> ./nginx-reverse.sh classic domain.tld localhost:8080"
+	echo "    -> ./nginx-reverse.sh ssl domain.tld localhost:8080 contact@domain.tld 2048"
 	exit 1
 }
 
@@ -47,4 +47,3 @@ function generate_ssl_cert() {
 	echo -e "  ${BWHITE}* Generating LE certificate for $DOMAIN, please wait...${NC}"
 	bash /opt/letsencrypt/letsencrypt-auto certonly --standalone --preferred-challenges http-01 --agree-tos --rsa-key-size $RSAKEYSIZE --non-interactive --quiet --email $EMAILADDRESS -d $DOMAIN
 }
-
